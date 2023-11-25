@@ -23,7 +23,7 @@ const Home = () => {
       <Cutomer />
       <div className="my-10">
         <h2 className="text-center font-bold text-3xl">Our Services</h2>
-        <div className="Container grid grid-cols-3 gap-8">
+        <div className="Container grid grid-cols-1 md:grid-cols-3 gap-8">
           {servicesData.map((service) => (
             <Service key={service.id} service={service} />
           ))}

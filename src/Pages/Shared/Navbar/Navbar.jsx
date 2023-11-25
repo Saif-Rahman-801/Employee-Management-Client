@@ -6,10 +6,9 @@ import "../../CSS/all.css";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 
-
 const Navbar = () => {
-  //   const isLoggedIn = true;
-  const isLoggedIn = false;
+    const isLoggedIn = true;
+//   const isLoggedIn = false;
   return (
     <nav className="text-gray-600 font-medium flex justify-between items-center Container">
       <div className="logo navUl">
@@ -20,7 +19,7 @@ const Navbar = () => {
 
       <ul className="nav-items navUl">
         <Link to={`/`}>
-          <li className="flex flex-col justify-center items-center">
+          <li className="hidden md:flex flex-col justify-center items-center">
             <span className="text-3xl text-orange-400">
               <MdHome />
             </span>
@@ -28,7 +27,7 @@ const Navbar = () => {
           </li>
         </Link>
         <Link to={`/dasboard`}>
-          <li className="flex flex-col justify-center items-center mx-4">
+          <li className="hidden md:flex flex-col justify-center items-center mx-4">
             <span className="text-3xl text-orange-400">
               <MdDashboard />
             </span>
@@ -36,12 +35,12 @@ const Navbar = () => {
           </li>
         </Link>
         <Link to={`/contact`}>
-        <li className="flex flex-col justify-center items-center">
-          <span className="text-3xl text-orange-400">
-            <RiContactsFill />
-          </span>
-          Contact us
-        </li>
+          <li className="hidden md:flex flex-col justify-center items-center">
+            <span className="text-3xl text-orange-400">
+              <RiContactsFill />
+            </span>
+            Contact us
+          </li>
         </Link>
       </ul>
 
@@ -66,9 +65,9 @@ const Navbar = () => {
               </button>
             </Link>
             <Link to={`/login`}>
-            <button className="bg-blue-400 hover:bg-gray-400 text-black font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline navUl items-center">
-              Login <CgLogIn />
-            </button>
+              <button className="bg-blue-400 hover:bg-gray-400 text-black font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline navUl items-center">
+                Login <CgLogIn />
+              </button>
             </Link>
           </>
         )}

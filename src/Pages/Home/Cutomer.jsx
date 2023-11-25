@@ -2,7 +2,7 @@ import competeImg from "../../assets/award.png";
 
 const Cutomer = () => {
   return (
-    <div className="Container flex justify-between items-center">
+    <div className="Container flex flex-col md:flex-row justify-between items-center">
       <div>
         <div className="p-8 rounded-md font-medium">
           <h2 className="text-3xl font-bold mb-4">
