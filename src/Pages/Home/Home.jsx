@@ -3,6 +3,8 @@ import Banner from "./Banner";
 import Cutomer from "./Cutomer";
 import Service from "./Service";
 import Course from "./Course";
+import Testimonials from "./Testimonials";
+import Footer from "../Shared/Footer/Footer";
 // import Service from "./Service";
 
 const Home = () => {
@@ -28,6 +30,8 @@ const Home = () => {
         </div>
       </div>
       <Course />
+      <Testimonials />
+      <Footer />
     </div>
   );
 };

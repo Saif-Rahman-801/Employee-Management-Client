@@ -4,6 +4,8 @@ import devLogo from "../../../assets/dev.png";
 import { RiContactsFill } from "react-icons/ri";
 import "../../CSS/all.css";
 import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
+
 
 const Navbar = () => {
   //   const isLoggedIn = true;
@@ -59,13 +61,15 @@ const Navbar = () => {
           <>
             {/* Conditional Register and Login buttons */}
             <Link to={`/register`}>
-              <button className="bg-blue-400 hover:bg-gray-400 text-black font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline navUl items-center gap-2">
-                Register
+              <button className="bg-blue-400 hover:bg-gray-400 text-black font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline navUl items-center">
+                Register <FaArrowRight />
               </button>
             </Link>
+            <Link to={`/login`}>
             <button className="bg-blue-400 hover:bg-gray-400 text-black font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline navUl items-center">
               Login <CgLogIn />
             </button>
+            </Link>
           </>
         )}
       </div>
