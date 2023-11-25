@@ -1,0 +1,7 @@
+.Container {
+  @apply container mx-auto my-5;
+}
+
+.navUl {
+  @apply flex gap-5 items-center;
+}
