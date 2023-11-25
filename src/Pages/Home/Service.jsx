@@ -1,24 +1,23 @@
 const Service = ({ service }) => {
   const { title, description, icon, id } = service;
   return (
-    <div className="container mx-auto p-4">
-      
-      <div className="flex items-center mb-8">
-        {/* Icon on the left */}
-        <div className="mr-4">
-          <img src={icon} alt={`Service Icon ${id}`} className="w-10 h-10" />
+    <div className="my-10">
+      <div>
+        <div className="text-center">
+          <img
+            src={icon}
+            alt={`Service ${id}`}
+            className="w-[300px] object-cover object-center"
+          />
         </div>
 
-        {/* Title and Description on the right */}
-        <div>
+        <div className="p-6">
           <h2 className="text-xl font-bold mb-2">{title}</h2>
-          <p>{description}</p>
+          <p className="text-gray-600 font-medium">{description}</p>
         </div>
       </div>
     </div>
   );
 };
-
-
 
 export default Service;

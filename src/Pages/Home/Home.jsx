@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import Banner from "./Banner";
+import Cutomer from "./Cutomer";
 import Service from "./Service";
-import competeImg from "../../assets/competence.png";
+// import Service from "./Service";
 
 const Home = () => {
+  // eslint-disable-next-line no-unused-vars
   const [servicesData, setServicesData] = useState([]);
 
   useEffect(() => {
@@ -15,27 +17,13 @@ const Home = () => {
   return (
     <div>
       <Banner />
-      <div className="Container flex justify-between items-center">
-        <div>
-          <div className="p-8 rounded-md font-medium">
-            <h2 className="text-3xl font-bold mb-4">
-              🌟 Be Our Customer of the Month! 🌟
-            </h2>
-            <p className="text-lg mb-4">
-              We are searching for the next customer to feature as our Customer
-              of the Month! 🏆
-            </p>
-            <p className="text-lg mb-4">
-              Enjoy exclusive benefits, including a fantastic **30% discount on
-              all purchases for one month!** 🎉
-            </p>
-            <button className="bg-orange-500 hover:bg-orange-600 font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline-orange">
-              Learn More
-            </button>
-          </div>
-        </div>
-        <div>
-          <img src={competeImg} alt="" />
+      <Cutomer />
+      <div className="my-10">
+        <h2 className="text-center font-bold text-3xl">Our Services</h2>
+        <div className="Container grid grid-cols-3 gap-8">
+          {servicesData.map((service) => (
+            <Service key={service.id} service={service} />
+          ))}
         </div>
       </div>
     </div>
