@@ -1,4 +1,4 @@
-import competeImg from "../../assets/competence.png";
+import competeImg from "../../assets/award.png";
 
 const Cutomer = () => {
   return (

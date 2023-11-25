@@ -1,0 +1,24 @@
+[
+    {
+      "id": 1,
+      "name": "John Doe",
+      "company": "ABC Corp",
+      "testimonial": "I've had the pleasure of working with this team, and I must say their debugging skills are outstanding. They quickly identified and resolved complex issues in our applications. The development team is highly skilled, delivering efficient and scalable solutions. The design team's creativity brought our vision to life with stunning interfaces. Truly a top-notch service provider!",
+      "service": ["debugging", "development", "design"]
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "company": "XYZ Ltd",
+      "testimonial": "Our experience with this team has been phenomenal. The debugging expertise ensured a smooth and error-free user experience. The development team demonstrated agility and delivered a product that exceeded our expectations. The design team's attention to detail transformed our ideas into visually appealing and user-friendly designs. Highly recommend their comprehensive services!",
+      "service": ["debugging", "development", "design"]
+    },
+    {
+      "id": 3,
+      "name": "Sam Johnson",
+      "company": "123 Innovations",
+      "testimonial": "Working with this team has been a game-changer for our business. The debugging efforts have optimized our software, enhancing overall performance. The development team's commitment to quality resulted in a robust and scalable application. The design team's creativity brought freshness and elegance to our user interfaces. Exceptional services across the board!",
+      "service": ["debugging", "development", "design"]
+    }
+  ]
+  

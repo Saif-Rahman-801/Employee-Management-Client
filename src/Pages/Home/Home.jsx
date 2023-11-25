@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Banner from "./Banner";
 import Cutomer from "./Cutomer";
 import Service from "./Service";
+import Course from "./Course";
 // import Service from "./Service";
 
 const Home = () => {
@@ -26,6 +27,7 @@ const Home = () => {
           ))}
         </div>
       </div>
+      <Course />
     </div>
   );
 };
