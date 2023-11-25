@@ -3,7 +3,7 @@
 }
 
 .navUl {
-  @apply flex gap-5 items-center;
+  @apply flex gap-3 items-center;
 }
 
 .font-md{

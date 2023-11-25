@@ -1,5 +1,7 @@
 import "../../CSS/all.css";
 import register from "../../../assets/register.png";
+import { Link } from "react-router-dom";
+import { CgLogIn } from "react-icons/cg";
 const Register = () => {
   return (
     <div className="Container mt-8 p-6 rounded-md  text-black font-medium my-10 flex flex-col md:navUl md:flex-row">
@@ -115,15 +117,30 @@ const Register = () => {
             name="role"
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-orange-300 "
           >
-            <option className="font-md" value="employee">Employee</option>
-            <option className="font-md"  value="hr">HR</option>
-            <option className="font-md"  value="admin">Admin</option>
+            <option className="font-md" value="employee">
+              Employee
+            </option>
+            <option className="font-md" value="hr">
+              HR
+            </option>
+            <option className="font-md" value="admin">
+              Admin
+            </option>
           </select>
         </div>
-        <div>
+        <div className="navUl">
           <button className="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline-orange">
             Register
           </button>
+          <div className="my-2 navUl">
+            <p>Already have an account? Please</p>
+            <Link
+              className="text-blue-500 flex items-center gap-2"
+              to={`/login`}
+            >
+              Login <CgLogIn />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
