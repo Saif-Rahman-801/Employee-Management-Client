@@ -42,7 +42,7 @@ const Login = () => {
             Login
           </button>
           <div className="my-2 navUl">
-            <p>Don't have an account? Please</p>
+            <p>Do not have an account? Please</p>
             <Link
               className="text-blue-500 flex items-center gap-2"
               to={`/register`}

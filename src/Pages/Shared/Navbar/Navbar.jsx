@@ -1,12 +1,12 @@
 import { CgLogIn, CgLogOut } from "react-icons/cg";
-import { MdDashboard } from "react-icons/md";
+import { MdDashboard, MdHome } from "react-icons/md";
 import devLogo from "../../../assets/dev.png";
 import { RiContactsFill } from "react-icons/ri";
-import "../../CSS/all.css"
+import "../../CSS/all.css";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-//   const isLoggedIn = true;
+  //   const isLoggedIn = true;
   const isLoggedIn = false;
   return (
     <nav className="text-gray-600 font-medium flex justify-between items-center Container">
@@ -17,17 +17,30 @@ const Navbar = () => {
       </div>
 
       <ul className="nav-items navUl">
+        <Link to={`/`}>
+          <li className="flex flex-col justify-center items-center">
+            <span className="text-3xl text-orange-400">
+              <MdHome />
+            </span>
+            Home
+          </li>
+        </Link>
+        <Link to={`/dasboard`}>
+          <li className="flex flex-col justify-center items-center mx-4">
+            <span className="text-3xl text-orange-400">
+              <MdDashboard />
+            </span>
+            Dashboard
+          </li>
+        </Link>
+        <Link to={`/contact`}>
         <li className="flex flex-col justify-center items-center">
           <span className="text-3xl text-orange-400">
-            <MdDashboard />
-          </span>
-          Dashboard
-        </li>
-        <li className="flex flex-col justify-center items-center">
-            <span className="text-3xl text-orange-400">
             <RiContactsFill />
-            </span>
-            Contact us</li>
+          </span>
+          Contact us
+        </li>
+        </Link>
       </ul>
 
       <div className="user-section navUl">
@@ -37,17 +50,18 @@ const Navbar = () => {
             <img src="" alt="User" className="user-photo" />
 
             {/* Clicking user photo reveals Logout button */}
-            <button className="logout-button navUl">Logout
-            <CgLogOut />
+            <button className="logout-button navUl">
+              Logout
+              <CgLogOut />
             </button>
           </>
         ) : (
           <>
             {/* Conditional Register and Login buttons */}
             <Link to={`/register`}>
-            <button className="bg-blue-400 hover:bg-gray-400 text-black font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline navUl items-center gap-2">
-              Register 
-            </button>
+              <button className="bg-blue-400 hover:bg-gray-400 text-black font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline navUl items-center gap-2">
+                Register
+              </button>
             </Link>
             <button className="bg-blue-400 hover:bg-gray-400 text-black font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline navUl items-center">
               Login <CgLogIn />

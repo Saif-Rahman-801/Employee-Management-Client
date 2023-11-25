@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "title": "Web Designing",
+      "description": "Crafting visually appealing and user-friendly websites to elevate your brand.",
+      "icon": "https://i.ibb.co/191LwdF/ux.png"
+    },
+    {
+      "id": 2,
+      "title": "Debugging",
+      "description": "Identifying and resolving issues to ensure smooth functionality and optimal performance.",
+      "icon": "https://i.ibb.co/GTRTdzs/debug.png"
+    },
+    {
+      "id": 3,
+      "title": "Web Development",
+      "description": "Building robust and scalable web applications tailored to meet your business requirements.",
+      "icon": "https://i.ibb.co/gS6XsfQ/data.png"
+    }
+  ]
+  
