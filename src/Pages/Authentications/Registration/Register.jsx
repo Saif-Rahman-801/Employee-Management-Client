@@ -2,14 +2,71 @@ import "../../CSS/all.css";
 import register from "../../../assets/register.png";
 import { Link } from "react-router-dom";
 import { CgLogIn } from "react-icons/cg";
+
+const image_key = import.meta.env.VITE_IMG_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_key}`
+
 const Register = () => {
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+  
+    // Extracting other form data
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const bankAccountNo = formData.get("bankAccountNo");
+    const negotiatedSalary = formData.get("negotiatedSalary");
+    const designation = formData.get("designation");
+    const role = formData.get("role");
+  
+    // Extracting the image file
+    const photo = formData.get("photo");
+  
+    // Creating a FormData object for image upload
+    const imageFormData = new FormData();
+    imageFormData.append("image", photo);
+  
+    // Posting the image to ImgBB
+    try {
+      const response = await fetch(image_hosting_api, {
+        method: "POST",
+        body: imageFormData,
+      });
+  
+      if (response.ok) {
+        const imageData = await response.json();
+  
+        // Access the image URL from the ImgBB response
+        const imageUrl = imageData.data.url;
+  
+        // Now you can use the imageUrl along with other form data
+        console.log("Name:", name);
+        console.log("Email:", email);
+        console.log("Password:", password);
+        console.log("Bank Account No:", bankAccountNo);
+        console.log("Negotiated Salary:", negotiatedSalary);
+        console.log("Designation:", designation);
+        console.log("Photo URL:", imageUrl);
+        console.log("Role:", role);
+  
+        // You can send this data to your server or perform other actions
+      } else {
+        console.error("Failed to upload image to ImgBB");
+      }
+    } catch (error) {
+      console.error("Error uploading image to ImgBB:", error);
+    }
+  };
+  
   return (
     <div className="Container mt-8 p-6 rounded-md  text-black font-medium my-10 flex flex-col md:navUl md:flex-row">
       {/* <h2 className="text-2xl font-semibold  mb-6">Register</h2> */}
       <div>
         <img src={register} alt="" />
       </div>
-      <div>
+      <form onSubmit={handleRegister}>
         <div className="navUl">
           {/* Name Field */}
           <div className="mb-4">
@@ -142,7 +199,7 @@ const Register = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
