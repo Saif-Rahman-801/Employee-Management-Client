@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
-import useUser from "../../Hooks/useUser";
+// import useUser from "../../Hooks/useUser";
 import useAuth from "../../Hooks/useAuth";
+import useUser from "../../Hooks/useUser";
 
 const Dashboard = () => {
   const users = useUser();
@@ -9,9 +10,10 @@ const Dashboard = () => {
   console.log(roledUser);
   const [main] = roledUser;
   console.log(main);
+  console.log(users);
 
   return (
-    <div className="flex justify-between">
+    <div className="flex">
       <div className="w-[20%] bg-[burlywood] h-[100vh]">
         {main?.role === "admin" ? (
           <nav className="flex flex-col gap-3 font-medium">
@@ -43,7 +45,7 @@ const Dashboard = () => {
         )}
       </div>
 
-      <div>
+      <div className="w-[80%]">
         <Outlet />
       </div>
     </div>
