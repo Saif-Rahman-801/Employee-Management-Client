@@ -20,26 +20,27 @@ const Users = () => {
   }, []);
 
   const employees = users.filter((user) => user.role === "employee");
-  console.log(employees);
+//   console.log(employees);
   const axiosPublic = useAxiosPublic();
 
 
   const handleVerification = (userId) => {
     const specificUser = users.find((userr) => userr._id === userId);
-    console.log(specificUser.isVerified);
+    // console.log(specificUser.isVerified);
     const verified = specificUser?.isVerified;
     const user = { isVerified: !verified };
 
     axiosPublic
       .put(`/users/${userId}`, user)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.modifiedCount > 0) {
           toast.success("employee verified");
           fetchUser();
         }
       })
       .catch((error) => {
+        toast.error("employee verified");
         console.log(error);
       });
   };
@@ -85,8 +86,13 @@ const Users = () => {
                 <td>{employee.bankAccountNo} </td>
                 <td>{employee.negotiatedSalary} </td>
                 <td>
-                  <button className="px-3 py-3 border bg-green-400 rounded-md">
-                    Pay{" "}
+                <button
+                    className={`px-3 py-3 border bg-green-400 rounded-md ${
+                      !employee.isVerified ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
+                    disabled={!employee.isVerified}
+                  >
+                    Pay
                   </button>{" "}
                 </td>
                 <td>
