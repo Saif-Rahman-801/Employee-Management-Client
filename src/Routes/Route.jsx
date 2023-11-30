@@ -4,6 +4,7 @@ import Home from "../Pages/Home/Home";
 import Register from "../Pages/Authentications/Registration/Register";
 import Login from "../Pages/Authentications/Login/Login";
 import DashBoard from "../Pages/Dashboard/DashBoard";
+import Users from "../Pages/Dashboard/Users";
 
 const router = createBrowserRouter([
   {
@@ -22,12 +23,20 @@ const router = createBrowserRouter([
             path: "/login",
             element: <Login />
         }
+        
     ]
   },
   {
-    path: "/dasboard/:email",
-    element: <DashBoard />
+    path: "/dasboard",
+    element: <DashBoard />,
+    children: [
+      {
+        path: "allUsers",
+        element: <Users />
+      }
+    ]
   }
+ 
 ]);
 
 export default router;
