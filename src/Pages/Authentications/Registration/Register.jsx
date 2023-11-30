@@ -87,6 +87,7 @@ const Register = () => {
             })
             .catch((error) => {
               console.log(error);
+              toast.error(error)
             });
             updateProfile(res.user, {
               displayName: name,
@@ -100,10 +101,12 @@ const Register = () => {
                 // An error occurred
                 // ...
                 console.log(error);
+                toast.error(error)
               });
           })
           .catch((error) => {
             console.log(error);
+            toast.error(error)
           });
 
        

@@ -5,10 +5,20 @@ import { RiContactsFill } from "react-icons/ri";
 import "../../CSS/all.css";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
+import useAuth from "../../../Hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
-    const isLoggedIn = true;
-//   const isLoggedIn = false;
+  const { user, logOut } = useAuth();
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        toast.success("Logged Out");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <nav className="text-gray-600 font-medium flex justify-between items-center Container">
       <div className="logo navUl">
@@ -45,13 +55,17 @@ const Navbar = () => {
       </ul>
 
       <div className="user-section navUl">
-        {isLoggedIn ? (
+        {user ? (
           <>
             {/* Display user photo */}
-            <img src="" alt="User" className="user-photo" />
+            <img
+              src={user.photoURL}
+              alt="User"
+              className="user-photo w-[30px]"
+            />
 
             {/* Clicking user photo reveals Logout button */}
-            <button className="logout-button navUl">
+            <button onClick={handleLogOut} className="logout-button navUl">
               Logout
               <CgLogOut />
             </button>

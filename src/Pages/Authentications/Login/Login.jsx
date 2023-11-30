@@ -1,6 +1,25 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import login from "../../../assets/key.png";
+import useAuth from "../../../Hooks/useAuth";
+import { toast } from "react-toastify";
 const Login = () => {
+
+  const {signIn} = useAuth();
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value
+    const password = e.target.password.value
+    signIn(email, password)
+    .then((res) => {
+      console.log(res.user);
+      toast.success("Logged in successfully")
+      navigate("/")
+    }).catch((error) => {
+      toast.error(error)
+    })
+  }
+
   return (
     <div className="max-w-lg mx-auto mt-8 p-6 rounded-md text-black font-medium my-10 border-2 shadow-md">
       <div>
@@ -10,7 +29,7 @@ const Login = () => {
           <img src={login} alt="" className="w-[50px]"/>
         </div>
       </div>
-      <div>
+      <form onSubmit={handleSubmit}>
         {/* Email Field */}
         <div className="mb-4">
           <label htmlFor="email" className="block mb-2">
@@ -51,7 +70,7 @@ const Login = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
