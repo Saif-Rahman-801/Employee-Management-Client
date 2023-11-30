@@ -23,9 +23,12 @@ const Users = () => {
   console.log(employees);
   const axiosPublic = useAxiosPublic();
 
+
   const handleVerification = (userId) => {
-    
-    const user = { isVerified: true };
+    const specificUser = users.find((userr) => userr._id === userId);
+    console.log(specificUser.isVerified);
+    const verified = specificUser?.isVerified;
+    const user = { isVerified: !verified };
 
     axiosPublic
       .put(`/users/${userId}`, user)
@@ -39,8 +42,6 @@ const Users = () => {
       .catch((error) => {
         console.log(error);
       });
-
-    
   };
 
   return (
@@ -69,7 +70,7 @@ const Users = () => {
                 <td>{employee.email} </td>
                 <td>
                   {employee.isVerified ? (
-                    <button className="text-green-400 text-[40px]">
+                    <button onClick={() => handleVerification(employee._id)} className="text-green-400 text-[40px]">
                       <TiTick />
                     </button>
                   ) : (
