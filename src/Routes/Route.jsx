@@ -3,6 +3,7 @@ import Main from "../Pages/Layouts/Main";
 import Home from "../Pages/Home/Home";
 import Register from "../Pages/Authentications/Registration/Register";
 import Login from "../Pages/Authentications/Login/Login";
+import DashBoard from "../Pages/Dashboard/DashBoard";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         }
     ]
   },
+  {
+    path: "/dasboard/:email",
+    element: <DashBoard />
+  }
 ]);
 
 export default router;

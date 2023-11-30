@@ -1,6 +1,6 @@
 import "../../CSS/all.css";
 import register from "../../../assets/register.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CgLogIn } from "react-icons/cg";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { toast } from "react-toastify";
@@ -14,6 +14,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_key}`;
 const Register = () => {
   const axiosPublic = useAxiosPublic();
   const { createUser } = useAuth();
+  const navigate = useNavigate()
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -103,6 +104,7 @@ const Register = () => {
                 console.log(error);
                 toast.error(error)
               });
+              navigate("/")
           })
           .catch((error) => {
             console.log(error);

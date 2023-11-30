@@ -36,7 +36,7 @@ const Navbar = () => {
             Home
           </li>
         </Link>
-        <Link to={`/dasboard`}>
+        <Link to={`/dasboard/${user?.email}`}>
           <li className="hidden md:flex flex-col justify-center items-center mx-4">
             <span className="text-3xl text-orange-400">
               <MdDashboard />
