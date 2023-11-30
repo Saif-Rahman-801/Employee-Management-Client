@@ -20,9 +20,8 @@ const Users = () => {
   }, []);
 
   const employees = users.filter((user) => user.role === "employee");
-//   console.log(employees);
+  //   console.log(employees);
   const axiosPublic = useAxiosPublic();
-
 
   const handleVerification = (userId) => {
     const specificUser = users.find((userr) => userr._id === userId);
@@ -71,7 +70,10 @@ const Users = () => {
                 <td>{employee.email} </td>
                 <td>
                   {employee.isVerified ? (
-                    <button onClick={() => handleVerification(employee._id)} className="text-green-400 text-[40px]">
+                    <button
+                      onClick={() => handleVerification(employee._id)}
+                      className="text-green-400 text-[40px]"
+                    >
                       <TiTick />
                     </button>
                   ) : (
@@ -86,14 +88,67 @@ const Users = () => {
                 <td>{employee.bankAccountNo} </td>
                 <td>{employee.negotiatedSalary} </td>
                 <td>
-                <button
+                  <button
+                    onClick={() =>
+                      document.getElementById("my_modal_1").showModal()
+                    }
                     className={`px-3 py-3 border bg-green-400 rounded-md ${
-                      !employee.isVerified ? "opacity-50 cursor-not-allowed" : ""
+                      !employee.isVerified
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
                     }`}
                     disabled={!employee.isVerified}
                   >
                     Pay
                   </button>{" "}
+                                    <dialog id="my_modal_1" className="modal">
+                    <div className="modal-box p-6 mx-auto mt-16 bg-white rounded-md w-96">
+                      <h3 className="font-bold text-lg mb-4">Pay {employee.name}</h3>
+                      <p>Salary: {employee.negotiatedSalary}</p>
+                      <div className="modal-action mt-4">
+                        <form method="dialog" className="text-center">
+                          <label className="block">
+                            Month:
+                            <input
+                              type="text"
+                              placeholder="Enter month"
+                              className="border px-2 py-1 mt-1 w-full"
+                            />
+                          </label>
+                          <label className="block mt-4">
+                            Year:
+                            <input
+                              type="text"
+                              placeholder="Enter year"
+                              className="border px-2 py-1 mt-1 w-full"
+                            />
+                          </label>
+                          <button
+                            className="mt-4 bg-green-400 px-3 py-1 text-white rounded-md mr-2"
+                            onClick={() =>
+                              document.getElementById("my_modal_1").close()
+                            }
+                          >
+                            Close
+                          </button>
+                          <button
+                            className="mt-4 bg-blue-500 px-3 py-1 text-white rounded-md"
+                            onClick={() => {
+                              // Your logic to process the payment
+                              // You can use employee, month, and year here
+                              // ...
+
+                              // Close the modal
+                              document.getElementById("my_modal_1").close();
+                              toast.success("Payment processed successfully");
+                            }}
+                          >
+                            Pay
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </dialog>
                 </td>
                 <td>
                   <Link to={`/details`}>See details </Link>{" "}
