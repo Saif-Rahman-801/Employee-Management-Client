@@ -2,16 +2,24 @@ import "../../CSS/all.css";
 import register from "../../../assets/register.png";
 import { Link } from "react-router-dom";
 import { CgLogIn } from "react-icons/cg";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import useAuth from "../../../Hooks/useAuth";
+import { updateProfile } from "firebase/auth";
 
 const image_key = import.meta.env.VITE_IMG_KEY;
-const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_key}`
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_key}`;
 
 const Register = () => {
+  const axiosPublic = useAxiosPublic();
+  const { createUser } = useAuth();
+
   const handleRegister = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-  
+
     // Extracting other form data
     const name = formData.get("name");
     const email = formData.get("email");
@@ -20,38 +28,85 @@ const Register = () => {
     const negotiatedSalary = formData.get("negotiatedSalary");
     const designation = formData.get("designation");
     const role = formData.get("role");
-  
+
     // Extracting the image file
     const photo = formData.get("photo");
-  
+
     // Creating a FormData object for image upload
     const imageFormData = new FormData();
     imageFormData.append("image", photo);
-  
+
     // Posting the image to ImgBB
     try {
       const response = await fetch(image_hosting_api, {
         method: "POST",
         body: imageFormData,
       });
-  
+
       if (response.ok) {
         const imageData = await response.json();
-  
+
         // Access the image URL from the ImgBB response
         const imageUrl = imageData.data.url;
-  
-        // Now you can use the imageUrl along with other form data
-        console.log("Name:", name);
-        console.log("Email:", email);
-        console.log("Password:", password);
-        console.log("Bank Account No:", bankAccountNo);
-        console.log("Negotiated Salary:", negotiatedSalary);
-        console.log("Designation:", designation);
-        console.log("Photo URL:", imageUrl);
-        console.log("Role:", role);
-  
+
+        // Validate password
+        if (
+          password.length < 6 ||
+          !/[A-Z]/.test(password) ||
+          !/[!@#$%^&*(),.?":{}|<>]/.test(password)
+        ) {
+          toast.error(
+            "Password must be at least 6 characters long, contain a capital letter, and have a special character."
+          );
+          return;
+        }
+
         // You can send this data to your server or perform other actions
+        const userData = {
+          name,
+          email,
+          bankAccountNo,
+          negotiatedSalary,
+          designation,
+          img: imageUrl,
+          role,
+          isVerified: false,
+        };
+        console.log(userData);
+
+        createUser(email, password)
+          .then((res) => {
+            // console.log(res.user);
+            axiosPublic
+            .post("/users", userData)
+            .then((res) => {
+              console.log(res.data);
+              if (res.data.insertedId) {
+                toast.success("Registrated successfully");
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+            updateProfile(res.user, {
+              displayName: name,
+              photoURL: imageUrl,
+            })
+              .then(() => {
+                // Profile updated!
+                // ...
+              })
+              .catch((error) => {
+                // An error occurred
+                // ...
+                console.log(error);
+              });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+       
       } else {
         console.error("Failed to upload image to ImgBB");
       }
@@ -59,7 +114,7 @@ const Register = () => {
       console.error("Error uploading image to ImgBB:", error);
     }
   };
-  
+
   return (
     <div className="Container mt-8 p-6 rounded-md  text-black font-medium my-10 flex flex-col md:navUl md:flex-row">
       {/* <h2 className="text-2xl font-semibold  mb-6">Register</h2> */}
@@ -74,6 +129,7 @@ const Register = () => {
               Name
             </label>
             <input
+              required
               type="text"
               id="name"
               name="name"
@@ -87,6 +143,7 @@ const Register = () => {
               Email
             </label>
             <input
+              required
               type="email"
               id="email"
               name="email"
@@ -102,6 +159,7 @@ const Register = () => {
               Password
             </label>
             <input
+              required
               type="password"
               id="password"
               name="password"
@@ -115,6 +173,7 @@ const Register = () => {
               Bank Account No
             </label>
             <input
+              required
               type="text"
               id="bankAccountNo"
               name="bankAccountNo"
@@ -130,6 +189,7 @@ const Register = () => {
               Negotiated Salary
             </label>
             <input
+              required
               type="text"
               id="negotiatedSalary"
               name="negotiatedSalary"
@@ -143,6 +203,7 @@ const Register = () => {
               Designation
             </label>
             <input
+              required
               type="text"
               id="designation"
               name="designation"
@@ -157,6 +218,7 @@ const Register = () => {
             Photo Upload
           </label>
           <input
+            required
             type="file"
             id="photo"
             name="photo"
@@ -170,6 +232,7 @@ const Register = () => {
             Role
           </label>
           <select
+            required
             id="role"
             name="role"
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-orange-300 "
