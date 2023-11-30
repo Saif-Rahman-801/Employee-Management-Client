@@ -19,6 +19,19 @@ const Users = () => {
     fetchUser();
   }, []);
 
+//   const handlePay = (year, month) => {
+
+//   }
+
+  const handleModal = (e) => {
+    e.preventDefault();
+    const month = e.target.month.value;
+    const year = e.target.year.value;
+    console.log(month, year);
+  };
+
+  
+
   const employees = users.filter((user) => user.role === "employee");
   //   console.log(employees);
   const axiosPublic = useAxiosPublic();
@@ -101,17 +114,24 @@ const Users = () => {
                   >
                     Pay
                   </button>{" "}
-                                    <dialog id="my_modal_1" className="modal">
+                  <dialog id="my_modal_1" className="modal">
                     <div className="modal-box p-6 mx-auto mt-16 bg-white rounded-md w-96">
-                      <h3 className="font-bold text-lg mb-4">Pay {employee.name}</h3>
+                      <h3 className="font-bold text-lg mb-4">
+                        Pay {employee.name}
+                      </h3>
                       <p>Salary: {employee.negotiatedSalary}</p>
                       <div className="modal-action mt-4">
-                        <form method="dialog" className="text-center">
+                        <form
+                          onSubmit={handleModal}
+                          method="dialog"
+                          className="text-center"
+                        >
                           <label className="block">
                             Month:
                             <input
                               type="text"
                               placeholder="Enter month"
+                              name="month"
                               className="border px-2 py-1 mt-1 w-full"
                             />
                           </label>
@@ -119,6 +139,7 @@ const Users = () => {
                             Year:
                             <input
                               type="text"
+                              name="year"
                               placeholder="Enter year"
                               className="border px-2 py-1 mt-1 w-full"
                             />
@@ -131,6 +152,7 @@ const Users = () => {
                           >
                             Close
                           </button>
+
                           <button
                             className="mt-4 bg-blue-500 px-3 py-1 text-white rounded-md"
                             onClick={() => {
