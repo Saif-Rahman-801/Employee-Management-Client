@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAuth from "../../../Hooks/useAuth";
 import { updateProfile } from "firebase/auth";
+import useUser from "../../../Hooks/useUser";
 
 const image_key = import.meta.env.VITE_IMG_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_key}`;
@@ -14,7 +15,8 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_key}`;
 const Register = () => {
   const axiosPublic = useAxiosPublic();
   const { createUser } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const allUsers = useUser();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -29,6 +31,20 @@ const Register = () => {
     const negotiatedSalary = formData.get("negotiatedSalary");
     const designation = formData.get("designation");
     const role = formData.get("role");
+
+    if (role === "admin") {
+      const findAdmin = allUsers.find((user) => user.role === "admin");
+      if (findAdmin) {
+        toast.error("Admin Already Exists");
+        return;
+      }
+    } else if (role === "hr") {
+      const findHr = allUsers.find((user) => user.role === "hr");
+      if (findHr) {
+        toast.error("Hr Already Exists");
+        return;
+      }
+    }
 
     // Extracting the image file
     const photo = formData.get("photo");
@@ -79,17 +95,17 @@ const Register = () => {
           .then((res) => {
             // console.log(res.user);
             axiosPublic
-            .post("/users", userData)
-            .then((res) => {
-              console.log(res.data);
-              if (res.data.insertedId) {
-                toast.success("Registrated successfully");
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-              toast.error(error)
-            });
+              .post("/users", userData)
+              .then((res) => {
+                console.log(res.data);
+                if (res.data.insertedId) {
+                  toast.success("Registrated successfully");
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+                toast.error(error);
+              });
             updateProfile(res.user, {
               displayName: name,
               photoURL: imageUrl,
@@ -102,16 +118,14 @@ const Register = () => {
                 // An error occurred
                 // ...
                 console.log(error);
-                toast.error(error)
+                toast.error(error);
               });
-              navigate("/")
+            navigate("/");
           })
           .catch((error) => {
             console.log(error);
-            toast.error(error)
+            toast.error(error);
           });
-
-       
       } else {
         console.error("Failed to upload image to ImgBB");
       }
