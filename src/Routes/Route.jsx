@@ -7,30 +7,30 @@ import DashBoard from "../Pages/Dashboard/DashBoard";
 import Users from "../Pages/Dashboard/Users";
 import WorkSheet from "../Pages/Dashboard/Employee/WorkSheet";
 import ContactUs from "../Pages/ContactUs";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
     children: [
-        {
-            path: "/",
-            element: <Home />
-        },
-        {
-            path: "/register",
-            element: <Register />
-        },
-        {
-            path: "/login",
-            element: <Login />
-        }, 
-        {
-          path: "/contact",
-          element: <ContactUs />
-        }
-        
-    ]
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/contact",
+        element: <ContactUs />,
+      },
+    ],
   },
   {
     path: "/dasboard",
@@ -38,15 +38,22 @@ const router = createBrowserRouter([
     children: [
       {
         path: "allUsers",
-        element: <Users />
+        element: (
+          <PrivateRoute>
+            <Users />
+          </PrivateRoute>
+        ),
       },
       {
         path: "worksheet",
-        element: <WorkSheet />
-      }
-    ]
-  }
- 
+        element: (
+          <PrivateRoute>
+            <WorkSheet />
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
 ]);
 
 export default router;

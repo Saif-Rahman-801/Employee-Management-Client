@@ -7,10 +7,11 @@ import { toast } from "react-toastify";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const axiosPublic = useAxiosPublic()
 
   const fetchUser = () => {
     fetch("http://localhost:5000/users")
-      .then((res) => res.json()) // Convert response to JSON
+      .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((error) => console.error("Error fetching users:", error));
   };
@@ -19,9 +20,24 @@ const Users = () => {
     fetchUser();
   }, []);
 
-//   const handlePay = (year, month) => {
+  const handleVerification = (userId) => {
+    const specificUser = users.find((userr) => userr._id === userId);
+    const verified = specificUser?.isVerified;
+    const user = { isVerified: !verified };
 
-//   }
+    axiosPublic
+      .put(`/users/${userId}`, user)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          toast.success("Employee verified");
+          fetchUser();
+        }
+      })
+      .catch((error) => {
+        toast.error("Error verifying employee");
+        console.log(error);
+      });
+  };
 
   const handleModal = (e) => {
     e.preventDefault();
@@ -30,77 +46,48 @@ const Users = () => {
     console.log(month, year);
   };
 
-  
-
-  const employees = users.filter((user) => user.role === "employee");
-  //   console.log(employees);
-  const axiosPublic = useAxiosPublic();
-
-  const handleVerification = (userId) => {
-    const specificUser = users.find((userr) => userr._id === userId);
-    // console.log(specificUser.isVerified);
-    const verified = specificUser?.isVerified;
-    const user = { isVerified: !verified };
-
-    axiosPublic
-      .put(`/users/${userId}`, user)
-      .then((res) => {
-        // console.log(res.data);
-        if (res.data.modifiedCount > 0) {
-          toast.success("employee verified");
-          fetchUser();
-        }
-      })
-      .catch((error) => {
-        toast.error("employee verified");
-        console.log(error);
-      });
-  };
-
   return (
     <div>
       <div className="overflow-x-auto">
-        <table className="table">
-          {/* head */}
+        <table className="w-full table-auto">
           <thead className="text-lg">
             <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Verified</th>
-              <th>Bank Acoount</th>
-              <th>Salary</th>
-              <th>Pay</th>
-              <th>Details</th>
+              <th className="px-4 py-2"></th>
+              <th className="px-4 py-2">Name</th>
+              <th className="px-4 py-2">Email</th>
+              <th className="px-4 py-2">Verified</th>
+              <th className="px-4 py-2">Bank Account</th>
+              <th className="px-4 py-2">Salary</th>
+              <th className="px-4 py-2">Pay</th>
+              <th className="px-4 py-2">Details</th>
             </tr>
           </thead>
           <tbody className="font-medium">
-            {/* row 1 */}
-            {employees.map((employee, idx) => (
+            {users.map((employee, idx) => (
               <tr key={employee._id}>
-                <th>{idx + 1} </th>
-                <td>{employee.name} </td>
-                <td>{employee.email} </td>
-                <td>
+                <td className="px-4 py-2">{idx + 1}</td>
+                <td className="px-4 py-2">{employee.name}</td>
+                <td className="px-4 py-2">{employee.email}</td>
+                <td className="px-4 py-2">
                   {employee.isVerified ? (
                     <button
                       onClick={() => handleVerification(employee._id)}
-                      className="text-green-400 text-[40px]"
+                      className="text-green-400 text-[20px] md:text-[40px]"
                     >
                       <TiTick />
                     </button>
                   ) : (
                     <button
                       onClick={() => handleVerification(employee._id)}
-                      className="text-red-600 text-lg"
+                      className="text-red-600 text-lg md:text-xl"
                     >
                       <ImCross />
                     </button>
                   )}
                 </td>
-                <td>{employee.bankAccountNo} </td>
-                <td>{employee.negotiatedSalary} </td>
-                <td>
+                <td className="px-4 py-2">{employee.bankAccountNo}</td>
+                <td className="px-4 py-2">{employee.negotiatedSalary}</td>
+                <td className="px-4 py-2">
                   <button
                     onClick={() =>
                       document.getElementById("my_modal_1").showModal()
@@ -115,7 +102,7 @@ const Users = () => {
                     Pay
                   </button>{" "}
                   <dialog id="my_modal_1" className="modal">
-                    <div className="modal-box p-6 mx-auto mt-16 bg-white rounded-md w-96">
+                    <div className="modal-box p-6 mx-auto mt-16 bg-white rounded-md w-full md:w-96">
                       <h3 className="font-bold text-lg mb-4">
                         Pay {employee.name}
                       </h3>
@@ -152,7 +139,6 @@ const Users = () => {
                           >
                             Close
                           </button>
-
                           <button
                             className="mt-4 bg-blue-500 px-3 py-1 text-white rounded-md"
                             onClick={() => {
@@ -172,8 +158,8 @@ const Users = () => {
                     </div>
                   </dialog>
                 </td>
-                <td>
-                  <Link to={`/details`}>See details </Link>{" "}
+                <td className="px-4 py-2">
+                  <Link to={`/details`}>See details</Link>{" "}
                 </td>
               </tr>
             ))}
