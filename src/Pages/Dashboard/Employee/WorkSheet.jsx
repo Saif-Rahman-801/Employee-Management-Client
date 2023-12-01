@@ -9,11 +9,12 @@ import useAuth from "../../../Hooks/useAuth";
 const WorkSheet = () => {
   const { user } = useAuth();
   const [tableData, setTableData] = useState([]);
+
   const [formData, setFormData] = useState({
     task: "",
     hoursWorked: "",
     date: new Date(),
-    email: user.email,
+    email: user?.email || "",
   });
 
   const axiosPublic = useAxiosPublic();
@@ -27,9 +28,13 @@ const WorkSheet = () => {
     setFormData((prevData) => ({ ...prevData, date }));
   };
 
-  
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchTableData = () => {
+    if (!formData.email) {
+      console.warn("User email not available yet. Skipping fetch.");
+      return;
+    }
+
     axiosPublic
       .get(`/workSheets?email=${user?.email}`)
       .then((response) => {
@@ -42,6 +47,10 @@ const WorkSheet = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.email) {
+      console.warn("User email not available yet. Skipping submission.");
+      return;
+    }
 
     try {
       // Post data to the database using Axios
@@ -63,7 +72,7 @@ const WorkSheet = () => {
         task: "",
         hoursWorked: "",
         date: new Date(),
-        email: "",
+        email: formData.email,
       });
 
       // Add any additional logic after successful submission
@@ -74,7 +83,7 @@ const WorkSheet = () => {
 
   useEffect(() => {
     fetchTableData();
-  }, [axiosPublic, fetchTableData, user?.email]);
+  }, [axiosPublic, fetchTableData, formData.email]);
 
   return (
     <div className="flex justify-between max-w-3xl mx-auto mt-8">
