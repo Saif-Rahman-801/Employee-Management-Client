@@ -4,6 +4,13 @@ https://github.com/programming-hero-web-course1/b8a12-client-side-Saif-Rahman-80
 # server side repo
 https://github.com/programming-hero-web-course1/b8a12-server-side-Saif-Rahman-801
 
+# Features of the project
+ + You can join as employee
+ + You can be made HR by admin
+ + Admin can fire employees
+ + Hr can see all the employee and verify
+ + Employees can submit their work 
+
 
 # React + Vite
 
