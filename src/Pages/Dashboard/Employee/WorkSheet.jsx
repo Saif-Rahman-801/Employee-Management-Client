@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 // import axios from "axios";
@@ -8,11 +8,12 @@ import useAuth from "../../../Hooks/useAuth";
 
 const WorkSheet = () => {
   const { user } = useAuth();
+  const [tableData, setTableData] = useState([]);
   const [formData, setFormData] = useState({
     task: "",
     hoursWorked: "",
     date: new Date(),
-    email: user.email,
+    email: user?.email,
   });
 
   const axiosPublic = useAxiosPublic();
@@ -26,6 +27,19 @@ const WorkSheet = () => {
     setFormData((prevData) => ({ ...prevData, date }));
   };
 
+  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const fetchTableData = () => {
+    axiosPublic
+      .get(`/workSheet?${user?.email}`)
+      .then((response) => {
+        setTableData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -36,6 +50,8 @@ const WorkSheet = () => {
         .then((res) => {
           if (res.data.insertedId) {
             toast.success("Your work submitted successfully");
+            // Reftech here
+            fetchTableData();
           }
         })
         .catch((error) => {
@@ -55,6 +71,10 @@ const WorkSheet = () => {
       console.error("Error posting data:", error);
     }
   };
+
+  useEffect(() => {
+    fetchTableData();
+  }, [axiosPublic, fetchTableData, user?.email]);
 
   return (
     <div className="flex justify-between max-w-3xl mx-auto mt-8">
@@ -130,15 +150,15 @@ const WorkSheet = () => {
               <th className="border p-2">Date</th>
             </tr>
           </thead>
-          {/* <tbody>
-        {tableData.map((data, index) => (
-          <tr key={index}>
-            <td className="border p-2">{data.task}</td>
-            <td className="border p-2">{data.hoursWorked}</td>
-            <td className="border p-2">{data.date}</td>
-          </tr>
-        ))}
-      </tbody> */}
+          <tbody>
+            {tableData.map((data, index) => (
+              <tr key={index}>
+                <td className="border p-2">{data.task}</td>
+                <td className="border p-2">{data.hoursWorked}</td>
+                <td className="border p-2">{data.date}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>{" "}
     </div>
