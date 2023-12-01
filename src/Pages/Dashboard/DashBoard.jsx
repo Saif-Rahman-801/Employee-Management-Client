@@ -49,7 +49,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col lg:flex-row">
-      <div className="lg:w-1/5 bg-[burlywood] h-[100px] md:min-h-screen">
+      <div className="lg:w-1/5 bg-[burlywood] h-[150px] md:min-h-screen">
         {main?.role === "employee" ? (
           <nav className="flex flex-col lg:gap-3 font-medium">
             <NavLink className="px-3 py-2" to="/">
