@@ -101,12 +101,18 @@ const AllEmployee = () => {
               <td className="border px-4 py-2">{employee.designation}</td>
 
               <td className="border px-4 py-2">
-                <button
-                  onClick={() => handleHR(employee._id)}
-                  className="px-3 py-2 bg-green-500 rounded-md text-white"
-                >
-                  Make HR
-                </button>
+                <div>
+                  {employee.role === "hr" ? (
+                    <p> hr </p>
+                  ) : (
+                    <button
+                      onClick={() => handleHR(employee._id)}
+                      className="px-3 py-2 bg-green-500 rounded-md text-white"
+                    >
+                      Make HR
+                    </button>
+                  )}
+                </div>
               </td>
               <td className="border px-4 py-2">
                 {fire ? (
