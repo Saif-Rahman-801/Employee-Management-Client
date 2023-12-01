@@ -10,7 +10,7 @@ const AllEmployee = () => {
   const axiosPublic = useAxiosPublic();
 
   const fetchUser = () => {
-    fetch("http://localhost:5000/users")
+    fetch("https://employee-management-server-nine.vercel.app/users")
       .then((res) => res.json())
       .then((data) => setAllUsers(data))
       .catch((error) => console.error("Error fetching users:", error));
