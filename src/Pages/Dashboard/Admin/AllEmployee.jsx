@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const AllEmployee = () => {
   const [AllUsers, setAllUsers] = useState([]);
@@ -21,15 +22,38 @@ const AllEmployee = () => {
   }, []);
 
   const handleFire = (userId) => {
-    // console.log(userId);
-    axiosPublic.delete(`/users/${userId}`)
-      .then((res) => {
-        console.log(res.data);
-        if(res.data.deletedCount > 0){
-            toast.success("User fired successfully, It will be deleted after a refresh");
-        }
-      })
-      .catch((error) => console.log(error));
+    /*  */
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic
+          .delete(`/users/${userId}`)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.deletedCount > 0) {
+              toast.success(
+                "User fired successfully, It will be deleted from the list after a refresh"
+              );
+              //   Refetch here
+              //   fetchUser();
+            }
+          })
+          .catch((error) => console.log(error));
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "User has been fired.",
+          icon: "success",
+        });
+      }
+    });
   };
 
   return (
