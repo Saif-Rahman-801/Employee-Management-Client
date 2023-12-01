@@ -17,7 +17,7 @@ const Register = () => {
   const { createUser } = useAuth();
   const navigate = useNavigate();
   const allUsers = useUser();
-  console.log(allUsers);
+  // console.log(allUsers);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -105,7 +105,7 @@ const Register = () => {
             axiosPublic
               .post("/users", userData)
               .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.insertedId) {
                   toast.success("Registrated successfully");
                 }

@@ -9,7 +9,10 @@ https://github.com/programming-hero-web-course1/b8a12-server-side-Saif-Rahman-80
  + You can be made HR by admin
  + Admin can fire employees
  + Hr can see all the employee and verify
- + Employees can submit their work 
+ + Employees can submit their work
+
+# Live site Link
+ + https://employee-management-de63c.web.app 
 
 
 # React + Vite

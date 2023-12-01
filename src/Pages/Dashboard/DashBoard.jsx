@@ -30,7 +30,7 @@ const Dashboard = () => {
   useEffect(() => {
     const getMainRole = () => {
       const mainUser = allUsers.find((data) => data?.email === user?.email);
-      console.log(mainUser);
+      // console.log(mainUser);
       return mainUser;
     };
 
@@ -45,7 +45,7 @@ const Dashboard = () => {
     return cleanup;
   }, [allUsers, user]);
 
-  console.log(main);
+  // console.log(main);
 
   return (
     <div className="flex flex-col lg:flex-row">
@@ -84,6 +84,15 @@ const Dashboard = () => {
           <nav className="flex flex-col lg:gap-3 font-medium">
             <NavLink className="px-3 py-2" to="/">
               Home
+            </NavLink>
+            <NavLink className="px-3 py-2" to="/">
+              Payment History
+            </NavLink>
+            <NavLink className="px-3 py-2" to="worksheet">
+              Work-sheet
+            </NavLink>
+            <NavLink className="px-3 py-2" to="allUsers">
+              Users
             </NavLink>
             <NavLink className="px-3 py-2" to="allEmployee">
               All Employee List
