@@ -93,6 +93,11 @@ const Dashboard = () => {
       </div>
 
       <div className="lg:w-4/5">
+        <div className="flex justify-center items-center">
+          <h2 className="text-xl my-4 text-center font-medium">
+            Welcome to the dashboard please use the sidebar to navigate
+          </h2>
+        </div>
         <Outlet />
       </div>
     </div>
