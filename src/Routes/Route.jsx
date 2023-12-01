@@ -8,6 +8,7 @@ import Users from "../Pages/Dashboard/Users";
 import WorkSheet from "../Pages/Dashboard/Employee/WorkSheet";
 import ContactUs from "../Pages/ContactUs";
 import PrivateRoute from "./PrivateRoute";
+import AllEmployee from "../Pages/Dashboard/Admin/AllEmployee";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <WorkSheet />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "allEmployee",
+        element: (
+          <PrivateRoute>
+            <AllEmployee />
           </PrivateRoute>
         ),
       },

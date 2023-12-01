@@ -76,7 +76,7 @@ const Dashboard = () => {
             <NavLink className="px-3 py-2" to="/">
               Home
             </NavLink>
-            <NavLink className="px-3 py-2" to="/">
+            <NavLink className="px-3 py-2" to="allEmployee">
               All Employee List
             </NavLink>
           </nav>
@@ -85,7 +85,7 @@ const Dashboard = () => {
             <NavLink className="px-3 py-2" to="/">
               Home
             </NavLink>
-            <NavLink className="px-3 py-2" to="/">
+            <NavLink className="px-3 py-2" to="allEmployee">
               All Employee List
             </NavLink>
           </nav>
