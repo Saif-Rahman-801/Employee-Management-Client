@@ -6,22 +6,24 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
-  const axiosPublic = useAxiosPublic()
+  const [Allusers, setAllUsers] = useState([]);
+  const axiosPublic = useAxiosPublic();
 
   const fetchUser = () => {
     fetch("http://localhost:5000/users")
       .then((res) => res.json())
-      .then((data) => setUsers(data))
+      .then((data) => setAllUsers(data))
       .catch((error) => console.error("Error fetching users:", error));
   };
+
+  const employees = Allusers.filter((user) => user.role === "employee");
 
   useEffect(() => {
     fetchUser();
   }, []);
 
   const handleVerification = (userId) => {
-    const specificUser = users.find((userr) => userr._id === userId);
+    const specificUser = Allusers.find((userr) => userr._id === userId);
     const verified = specificUser?.isVerified;
     const user = { isVerified: !verified };
 
@@ -63,7 +65,7 @@ const Users = () => {
             </tr>
           </thead>
           <tbody className="font-medium">
-            {users.map((employee, idx) => (
+            {employees.map((employee, idx) => (
               <tr key={employee._id}>
                 <td className="px-4 py-2">{idx + 1}</td>
                 <td className="px-4 py-2">{employee.name}</td>

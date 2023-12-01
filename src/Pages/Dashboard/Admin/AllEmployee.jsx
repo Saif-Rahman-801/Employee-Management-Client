@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 
 const AllEmployee = () => {
   const [AllUsers, setAllUsers] = useState([]);
+  const [fire, setFire] = useState(false);
   const axiosPublic = useAxiosPublic();
 
   const fetchUser = () => {
@@ -38,6 +39,7 @@ const AllEmployee = () => {
           .then((res) => {
             console.log(res.data);
             if (res.data.deletedCount > 0) {
+              setFire(!fire);
               toast.success(
                 "User fired successfully, It will be deleted from the list after a refresh"
               );
@@ -81,12 +83,18 @@ const AllEmployee = () => {
                 </button>
               </td>
               <td className="border px-4 py-2">
-                <button
-                  onClick={() => handleFire(employee._id)}
-                  className="px-3 py-2 bg-red-500 rounded-md text-white"
-                >
-                  Fire
-                </button>
+                {fire ? (
+                  <p>
+                    <i>Fired</i>{" "}
+                  </p>
+                ) : (
+                  <button
+                    onClick={() => handleFire(employee._id)}
+                    className="px-3 py-2 bg-red-500 rounded-md text-white"
+                  >
+                    Fire
+                  </button>
+                )}
               </td>
             </tr>
           ))}
