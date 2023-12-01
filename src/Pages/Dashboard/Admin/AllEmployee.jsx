@@ -58,6 +58,29 @@ const AllEmployee = () => {
     });
   };
 
+  const handleHR = (userId) => {
+    // console.log(userId);
+    /*  const employee = AllUsers.find((user) => user._id === userId);
+    console.log(employee.role); */
+    const user = {
+      role: "hr",
+      isVerified: true,
+    };
+
+    axiosPublic
+      .put(`/hr/${userId}`, user)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          toast.success("Employee role updated to HR");
+          fetchUser();
+        }
+      })
+      .catch((error) => {
+        toast.error("Error updating employee role");
+        console.log(error);
+      });
+  };
+
   return (
     <div className="overflow-x-auto">
       <table className="w-full table-auto border-collapse">
@@ -78,7 +101,10 @@ const AllEmployee = () => {
               <td className="border px-4 py-2">{employee.designation}</td>
 
               <td className="border px-4 py-2">
-                <button className="px-3 py-2 bg-green-500 rounded-md text-white">
+                <button
+                  onClick={() => handleHR(employee._id)}
+                  className="px-3 py-2 bg-green-500 rounded-md text-white"
+                >
                   Make HR
                 </button>
               </td>

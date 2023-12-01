@@ -97,7 +97,7 @@ const Register = () => {
           role,
           isVerified: false,
         };
-        console.log(userData);
+        // console.log(userData);
 
         createUser(email, password)
           .then((res) => {
