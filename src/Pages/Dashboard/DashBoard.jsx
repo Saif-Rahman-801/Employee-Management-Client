@@ -15,20 +15,19 @@ const Dashboard = () => {
   return (
     <div className="flex">
       <div className="w-[20%] bg-[burlywood] h-[100vh]">
+        <nav className="flex flex-col gap-3 font-medium">
+          <NavLink className="px-3 pt-3" to={`/`}>
+            Home
+          </NavLink>
+        </nav>
         {main?.role === "admin" ? (
           <nav className="flex flex-col gap-3 font-medium">
-            <NavLink className="px-3 pt-3" to={`/`}>
-              Home
-            </NavLink>
             <NavLink className="px-3 pt-3" to={`/`}>
               All employee list
             </NavLink>
           </nav>
         ) : main?.role === "hr" ? (
           <nav className="flex flex-col gap-3 font-medium">
-            <NavLink className="px-3 pt-3" to={`/`}>
-              Home
-            </NavLink>
             <NavLink className="px-3" to={`allUsers`}>
               Users
             </NavLink>
@@ -46,7 +45,6 @@ const Dashboard = () => {
       </div>
 
       <div className="w-[80%]">
-       
         <Outlet />
       </div>
     </div>

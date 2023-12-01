@@ -6,6 +6,7 @@ import Login from "../Pages/Authentications/Login/Login";
 import DashBoard from "../Pages/Dashboard/DashBoard";
 import Users from "../Pages/Dashboard/Users";
 import WorkSheet from "../Pages/Dashboard/Employee/WorkSheet";
+import ContactUs from "../Pages/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         {
             path: "/login",
             element: <Login />
+        }, 
+        {
+          path: "/contact",
+          element: <ContactUs />
         }
         
     ]
