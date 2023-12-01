@@ -46,6 +46,7 @@ const Dashboard = () => {
       </div>
 
       <div className="w-[80%]">
+       
         <Outlet />
       </div>
     </div>

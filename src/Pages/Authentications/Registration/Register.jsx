@@ -17,6 +17,7 @@ const Register = () => {
   const { createUser } = useAuth();
   const navigate = useNavigate();
   const allUsers = useUser();
+  console.log(allUsers);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -31,15 +32,22 @@ const Register = () => {
     const negotiatedSalary = formData.get("negotiatedSalary");
     const designation = formData.get("designation");
     const role = formData.get("role");
+    const findAdmin = allUsers.find((user) => user.role === "admin");
+    const findHr = allUsers.find((user) => user.role === "hr");
+    const findUser = allUsers.find((user) => user.email === email);
+
+
+    if (findUser) {
+      toast.error("email already exists");
+      return;
+    }
 
     if (role === "admin") {
-      const findAdmin = allUsers.find((user) => user.role === "admin");
       if (findAdmin) {
         toast.error("Admin Already Exists");
         return;
       }
     } else if (role === "hr") {
-      const findHr = allUsers.find((user) => user.role === "hr");
       if (findHr) {
         toast.error("Hr Already Exists");
         return;

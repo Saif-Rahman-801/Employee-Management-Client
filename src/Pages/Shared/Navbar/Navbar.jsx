@@ -19,7 +19,7 @@ const Navbar = () => {
         console.log(error);
       });
   };
-  
+
   return (
     <nav className="text-gray-600 font-medium flex justify-between items-center Container">
       <div className="logo navUl">
@@ -37,7 +37,7 @@ const Navbar = () => {
             Home
           </li>
         </Link>
-        <Link to={`/dasboard/allUsers`}>
+        <Link to={`/dasboard`}>
           <li className="hidden md:flex flex-col justify-center items-center mx-4">
             <span className="text-3xl text-orange-400">
               <MdDashboard />
