@@ -38,7 +38,7 @@ const Dashboard = () => {
             <NavLink className="px-3 pt-3" to={`/`}>
               Payment History
             </NavLink>
-            <NavLink className="px-3" to={`allUsers`}>
+            <NavLink className="px-3" to={`worksheet`}>
               Work-sheet
             </NavLink>
           </nav>
