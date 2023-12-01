@@ -34,7 +34,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dasboard",
-    element: <DashBoard />,
+    element: (
+      <PrivateRoute>
+        <DashBoard />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "allUsers",
