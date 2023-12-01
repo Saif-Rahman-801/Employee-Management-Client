@@ -13,7 +13,7 @@ const WorkSheet = () => {
     task: "",
     hoursWorked: "",
     date: new Date(),
-    email: user?.email,
+    email: user.email,
   });
 
   const axiosPublic = useAxiosPublic();
@@ -31,7 +31,7 @@ const WorkSheet = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchTableData = () => {
     axiosPublic
-      .get(`/workSheet?${user?.email}`)
+      .get(`/workSheets?email=${user?.email}`)
       .then((response) => {
         setTableData(response.data);
       })
