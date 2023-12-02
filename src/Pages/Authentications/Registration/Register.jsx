@@ -6,7 +6,7 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAuth from "../../../Hooks/useAuth";
-import { updateProfile } from "firebase/auth";
+// import { updateProfile } from "firebase/auth";
 import useUser from "../../../Hooks/useUser";
 
 const image_key = import.meta.env.VITE_IMG_KEY;
@@ -14,7 +14,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_key}`;
 
 const Register = () => {
   const axiosPublic = useAxiosPublic();
-  const { createUser } = useAuth();
+  const { createUser, updateUser, setLoading } = useAuth();
   const navigate = useNavigate();
   const allUsers = useUser();
   // console.log(allUsers);
@@ -32,11 +32,10 @@ const Register = () => {
     const negotiatedSalary = formData.get("negotiatedSalary");
     const designation = formData.get("designation");
     const role = formData.get("role");
-    
+
     const findAdmin = allUsers.find((user) => user.role === "admin");
     const findHr = allUsers.find((user) => user.role === "hr");
     const findUser = allUsers.find((user) => user.email === email);
-
 
     if (findUser) {
       toast.error("email already exists");
@@ -106,33 +105,37 @@ const Register = () => {
         createUser(email, password)
           .then((res) => {
             // console.log(res.user);
+            const user = res.user;
             axiosPublic
               .post("/users", userData)
               .then((res) => {
                 // console.log(res.data);
                 if (res.data.insertedId) {
+                  updateUser(user, name, imageUrl)
+                  .then(() => {
+                    // Profile updated!
+                    // ...
+                    setLoading(false)
+                  })
+                  .catch((error) => {
+                    // An error occurred
+                    // ...
+                    console.log(error);
+                    toast.error(error);
+                  });
                   toast.success("Registrated successfully");
+                  navigate("/");
                 }
               })
               .catch((error) => {
                 console.log(error);
                 toast.error(error);
               });
-            updateProfile(res.user, {
+            /* updateProfile(res.user, {
               displayName: name,
               photoURL: imageData.data.url,
-            })
-              .then(() => {
-                // Profile updated!
-                // ...
-              })
-              .catch((error) => {
-                // An error occurred
-                // ...
-                console.log(error);
-                toast.error(error);
-              });
-            navigate("/");
+            }) */
+           
           })
           .catch((error) => {
             console.log(error);
