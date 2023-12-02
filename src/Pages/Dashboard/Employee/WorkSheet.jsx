@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import axios from "axios";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { toast } from "react-toastify";
 import useAuth from "../../../Hooks/useAuth";
@@ -9,7 +8,6 @@ import useAuth from "../../../Hooks/useAuth";
 const WorkSheet = () => {
   const { user } = useAuth();
   const [tableData, setTableData] = useState([]);
-
   const [formData, setFormData] = useState({
     task: "",
     hoursWorked: "",
@@ -28,21 +26,18 @@ const WorkSheet = () => {
     setFormData((prevData) => ({ ...prevData, date }));
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fetchTableData = () => {
-    if (!formData.email) {
-      console.warn("User email not available yet. Skipping fetch.");
-      return;
-    }
+  const fetchTableData = async () => {
+    try {
+      if (!formData.email) {
+        console.warn("User email not available yet. Skipping fetch.");
+        return;
+      }
 
-    axiosPublic
-      .get(`/workSheets?email=${user?.email}`)
-      .then((response) => {
-        setTableData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      const response = await axiosPublic.get(`/workSheets?email=${user?.email}`);
+      setTableData(response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -53,19 +48,13 @@ const WorkSheet = () => {
     }
 
     try {
-      // Post data to the database using Axios
-      await axiosPublic
-        .post("/worksheet", formData)
-        .then((res) => {
-          if (res.data.insertedId) {
-            toast.success("Your work submitted successfully");
-            // Reftech here
-            fetchTableData();
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      const res = await axiosPublic.post("/worksheet", formData);
+
+      if (res.data.insertedId) {
+        toast.success("Your work submitted successfully");
+        // Reftech here
+        await fetchTableData();
+      }
 
       // Optionally, you can reset the form after successful submission
       setFormData({
@@ -83,7 +72,7 @@ const WorkSheet = () => {
 
   useEffect(() => {
     fetchTableData();
-  }, [axiosPublic, fetchTableData, formData.email]);
+  }, [axiosPublic, formData.email]);
 
   return (
     <div className="flex justify-between max-w-3xl mx-auto mt-8">

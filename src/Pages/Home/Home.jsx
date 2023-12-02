@@ -5,16 +5,22 @@ import Service from "./Service";
 import Course from "./Course";
 import Testimonials from "./Testimonials";
 import Footer from "../Shared/Footer/Footer";
-// import Service from "./Service";
 
 const Home = () => {
-  // eslint-disable-next-line no-unused-vars
   const [servicesData, setServicesData] = useState([]);
 
+  const fetchServicesData = async () => {
+    try {
+      const response = await fetch("https://employee-management-server-nine.vercel.app/services");
+      const data = await response.json();
+      setServicesData(data);
+    } catch (error) {
+      console.error("Error fetching services data:", error);
+    }
+  };
+
   useEffect(() => {
-    fetch("https://employee-management-server-nine.vercel.app/services")
-      .then((res) => res.json())
-      .then((data) => setServicesData(data));
+    fetchServicesData();
   }, []);
 
   return (

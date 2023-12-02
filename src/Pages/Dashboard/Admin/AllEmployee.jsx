@@ -9,11 +9,14 @@ const AllEmployee = () => {
   const [fire, setFire] = useState(false);
   const axiosPublic = useAxiosPublic();
 
-  const fetchUser = () => {
-    fetch("https://employee-management-server-nine.vercel.app/users")
-      .then((res) => res.json())
-      .then((data) => setAllUsers(data))
-      .catch((error) => console.error("Error fetching users:", error));
+  const fetchUser = async () => {
+    try {
+      const response = await fetch("https://employee-management-server-nine.vercel.app/users");
+      const data = await response.json();
+      setAllUsers(data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
   };
 
   const employees = AllUsers.filter((user) => user.isVerified === true);
@@ -22,63 +25,55 @@ const AllEmployee = () => {
     fetchUser();
   }, []);
 
-  const handleFire = (userId) => {
-    /*  */
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosPublic
-          .delete(`/users/${userId}`)
-          .then((res) => {
-            console.log(res.data);
-            if (res.data.deletedCount > 0) {
-              setFire(!fire);
-              toast.success(
-                "User fired successfully, It will be deleted from the list after a refresh"
-              );
-              //   Refetch here
-              //   fetchUser();
-            }
-          })
-          .catch((error) => console.log(error));
+  const handleFire = async (userId) => {
+    try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
 
-        Swal.fire({
+      if (result.isConfirmed) {
+        const res = await axiosPublic.delete(`/users/${userId}`);
+
+        if (res.data.deletedCount > 0) {
+          setFire(!fire);
+          toast.success("User fired successfully, It will be deleted from the list after a refresh");
+          await fetchUser();
+        }
+
+        await Swal.fire({
           title: "Deleted!",
           text: "User has been fired.",
           icon: "success",
         });
       }
-    });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleHR = (userId) => {
-    // console.log(userId);
-    /*  const employee = AllUsers.find((user) => user._id === userId);
-    console.log(employee.role); */
+  const handleHR = async (userId) => {
     const user = {
       role: "hr",
       isVerified: true,
     };
 
-    axiosPublic
-      .put(`/hr/${userId}`, user)
-      .then((res) => {
-        if (res.data.modifiedCount > 0) {
-          toast.success("Employee role updated to HR");
-          fetchUser();
-        }
-      })
-      .catch((error) => {
-        toast.error("Error updating employee role");
-        console.log(error);
-      });
+    try {
+      const res = await axiosPublic.put(`/hr/${userId}`, user);
+
+      if (res.data.modifiedCount > 0) {
+        toast.success("Employee role updated to HR");
+        await fetchUser();
+      }
+    } catch (error) {
+      toast.error("Error updating employee role");
+      console.log(error);
+    }
   };
 
   return (

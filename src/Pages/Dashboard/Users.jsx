@@ -9,11 +9,14 @@ const Users = () => {
   const [Allusers, setAllUsers] = useState([]);
   const axiosPublic = useAxiosPublic();
 
-  const fetchUser = () => {
-    fetch("https://employee-management-server-nine.vercel.app/users")
-      .then((res) => res.json())
-      .then((data) => setAllUsers(data))
-      .catch((error) => console.error("Error fetching users:", error));
+  const fetchUser = async () => {
+    try {
+      const response = await fetch("https://employee-management-server-nine.vercel.app/users");
+      const data = await response.json();
+      setAllUsers(data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
   };
 
   const employees = Allusers.filter((user) => user.role === "employee");
@@ -22,23 +25,21 @@ const Users = () => {
     fetchUser();
   }, []);
 
-  const handleVerification = (userId) => {
+  const handleVerification = async (userId) => {
     const specificUser = Allusers.find((userr) => userr._id === userId);
     const verified = specificUser?.isVerified;
     const user = { isVerified: !verified };
 
-    axiosPublic
-      .put(`/users/${userId}`, user)
-      .then((res) => {
-        if (res.data.modifiedCount > 0) {
-          toast.success("Employee verified");
-          fetchUser();
-        }
-      })
-      .catch((error) => {
-        toast.error("Error verifying employee");
-        console.log(error);
-      });
+    try {
+      const res = await axiosPublic.put(`/users/${userId}`, user);
+      if (res.data.modifiedCount > 0) {
+        toast.success("Employee verified");
+        await fetchUser();
+      }
+    } catch (error) {
+      toast.error("Error verifying employee");
+      console.log(error);
+    }
   };
 
   const handleModal = (e) => {

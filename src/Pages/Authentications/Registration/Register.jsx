@@ -32,6 +32,7 @@ const Register = () => {
     const negotiatedSalary = formData.get("negotiatedSalary");
     const designation = formData.get("designation");
     const role = formData.get("role");
+    
     const findAdmin = allUsers.find((user) => user.role === "admin");
     const findHr = allUsers.find((user) => user.role === "hr");
     const findUser = allUsers.find((user) => user.email === email);
@@ -68,6 +69,9 @@ const Register = () => {
         body: imageFormData,
       });
 
+      // const responseData = await response.json();
+      // console.log(responseData);
+
       if (response.ok) {
         const imageData = await response.json();
 
@@ -97,7 +101,7 @@ const Register = () => {
           role,
           isVerified: false,
         };
-        // console.log(userData);
+        console.log(userData);
 
         createUser(email, password)
           .then((res) => {
@@ -116,7 +120,7 @@ const Register = () => {
               });
             updateProfile(res.user, {
               displayName: name,
-              photoURL: imageUrl,
+              photoURL: imageData.data.url,
             })
               .then(() => {
                 // Profile updated!
