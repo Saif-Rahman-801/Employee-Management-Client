@@ -8,6 +8,11 @@ const Dashboard = () => {
   const axiosPublic = useAxiosPublic();
   const [allUsers, setAllUsers] = useState([]);
   const [main, setMain] = useState(null);
+  // const findAdmin = allUsers.find((usr) => usr.email === user.email);
+  
+  // console.log(findAdmin,findAdmin?._id);
+  // const admin = allUsers.find((usr) => usr._id === findAdmin?._id)
+  // console.log(admin?.role);
 
   useEffect(() => {
     const fetchData = async () => {
