@@ -1,70 +1,20 @@
 import { NavLink, Outlet } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import { useEffect, useState } from "react";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useUser from "../../Hooks/useUser";
 
 const Dashboard = () => {
-  /* const { user } = useAuth();
-  const axiosPublic = useAxiosPublic();
-  const [allUsers, setAllUsers] = useState([]);
+  /*   // const axiosPublic = useAxiosPublic();
+    // const [allUsers, setAllUsers] = useState([]); */
+
+  const { user, loading, setLoading } = useAuth();
+  const allUsers = useUser();
   const [main, setMain] = useState(null);
 
-  // const findAdmin = allUsers.find((usr) => usr.email === user.email);
-
-  // console.log(findAdmin,findAdmin?._id);
-  // const admin = allUsers.find((usr) => usr._id === findAdmin?._id)
-  // const role = admin.role
-  // console.log(role);
-
-  useEffect(() => {
+  /* useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosPublic.get("/users");
-        setAllUsers(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    const initializeData = async () => {
-      await fetchData();
-      // Perform other asynchronous operations if needed
-    };
-
-    initializeData();
-  }, [axiosPublic]);
-
-  useEffect(() => {
-    const getMainRole = () => {
-      const mainEmail = allUsers.find((data) => data?.email === user?.email);
-      const mainUser = allUsers.find((data) => data?._id === mainEmail?._id);
-      // console.log(mainUser);
-      return mainUser;
-    };
-
-    const mainUser = getMainRole();
-
-    // Use cleanup function to set mainUser after allUsers is updated
-    const cleanup = () => {
-      setMain(mainUser);
-    };
-
-    // Cleanup function will be called after the first render
-    return cleanup;
-  }, [allUsers, user]);
-
-  console.log(main, main?.role);
-  const role = main?.role;
-  console.log(role); */
-
-  const { user } = useAuth();
-  const axiosPublic = useAxiosPublic();
-  const [allUsers, setAllUsers] = useState([]);
-  const [main, setMain] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
+        // check user
         const response = await axiosPublic.get("/users");
         setAllUsers(response.data);
       } catch (error) {
@@ -77,33 +27,54 @@ const Dashboard = () => {
     };
 
     initializeData();
-  }, [axiosPublic]);
+  }, [axiosPublic]); */
 
   useEffect(() => {
     const getMainRole = () => {
       // check if user is available
-      const mainEmail = allUsers.find((data) => data?.email === user?.email);
-      const mainUser = allUsers.find((data) => data?._id === mainEmail?._id);
-      return mainUser;
+      if (!user) {
+        setLoading(true);
+      }
+      if (!allUsers) {
+        setLoading(true);
+      }
+      if (loading) {
+        return <progress className="progress w-56"></progress>;
+      }
+
+      if (allUsers && user) {
+        const mainEmail = allUsers.find((data) => data?.email === user?.email);
+        const mainUser = allUsers.find((data) => data?._id === mainEmail?._id);
+        console.log(mainUser);
+        setMain(mainUser);
+        return mainUser;
+      }
     };
 
     const mainUser = getMainRole();
 
-    const cleanup = () => {
-      setMain(mainUser);
-    };
+    // Set timeout to return a loading state after 3 seconds if the role is still undefined
+    const timeoutId = setTimeout(() => {
+      if (!mainUser) {
+        setLoading(true);
+      }
+    }, 5000);
 
-    return cleanup;
-  }, [allUsers, user]);
+    // Clear the timeout when the component unmounts or when the role is set
+    return () => clearTimeout(timeoutId);
+  }, [allUsers, loading, setLoading, user]);
 
-  // if (!main) {
-  //   // Main user data is not available yet, you can return a loading indicator or null
-  //   return null;
-  // }
+  /* if (!main) {
+    // Main user data is not available yet, you can return a loading indicator or null
+    return null;
+  } */
 
   const role = main?.role;
   // const role = "";
   console.log(role);
+  if (!role) {
+    return <progress className="progress w-56"></progress>;
+  }
 
   return (
     <div className="flex flex-col lg:flex-row">
@@ -162,12 +133,17 @@ const Dashboard = () => {
       ) : (
         <div className="lg:w-1/5 bg-[burlywood] h-auto md:min-h-screen">
           <nav className="flex flex-col lg:gap-3 font-medium">
-            <NavLink className="px-3 py-2 border-b border-gray-600 block" to="/">
+            <NavLink
+              className="px-3 py-2 border-b border-gray-600 block"
+              to="/"
+            >
               Home
             </NavLink>
 
             <div className="p-3">
-              <h2 className="border-b mb-2 p-2 border-gray-600">For Employees </h2>
+              <h2 className="border-b mb-2 p-2 border-gray-600">
+                For Employees{" "}
+              </h2>
               <NavLink className="px-3 py-2 block" to="/">
                 Payment History
               </NavLink>
