@@ -96,18 +96,19 @@ const Dashboard = () => {
     return cleanup;
   }, [allUsers, user]);
 
-  if (!main) {
-    // Main user data is not available yet, you can return a loading indicator or null
-    return null;
-  }
+  // if (!main) {
+  //   // Main user data is not available yet, you can return a loading indicator or null
+  //   return null;
+  // }
 
   const role = main?.role;
-  console.log(role)
+  // const role = "";
+  console.log(role);
 
   return (
     <div className="flex flex-col lg:flex-row">
       {role ? (
-        <div className="lg:w-1/5 bg-[burlywood] h-[150px] md:min-h-screen">
+        <div className="lg:w-1/5 bg-[burlywood] h-[180px] md:min-h-screen">
           {role === "employee" ? (
             <nav className="flex flex-col lg:gap-3 font-medium">
               <NavLink className="px-3 py-2" to="/">
@@ -159,23 +160,37 @@ const Dashboard = () => {
           )}
         </div>
       ) : (
-        <nav className="flex flex-col lg:gap-3 font-medium">
-              <NavLink className="px-3 py-2" to="/">
-                Home
-              </NavLink>
-              <NavLink className="px-3 py-2" to="/">
+        <div className="lg:w-1/5 bg-[burlywood] h-[180px] md:min-h-screen">
+          <nav className="flex flex-col lg:gap-3 font-medium">
+            <NavLink className="px-3 py-2 border-b border-gray-600 block" to="/">
+              Home
+            </NavLink>
+
+            <div className="p-3">
+              <h2 className="border-b mb-2 p-2 border-gray-600">Employee Routes</h2>
+              <NavLink className="px-3 py-2 block" to="/">
                 Payment History
               </NavLink>
-              <NavLink className="px-3 py-2" to="worksheet">
+              <NavLink className="px-3 py-2 block" to="worksheet">
                 Work-sheet
               </NavLink>
-              <NavLink className="px-3 py-2" to="allUsers">
+            </div>
+
+            <div className="p-3">
+              <h2 className="border-b mb-2 p-2 border-gray-600">HR Routes</h2>
+              <NavLink className="px-3 py-2 block" to="allUsers">
                 Users
               </NavLink>
-              <NavLink className="px-3 py-2" to="allEmployee">
+            </div>
+
+            <div className="p-3">
+              <h2 className="border-b mb-2 p-2 border-gray-600">Admin Routes</h2>
+              <NavLink className="px-3 py-2 block" to="allEmployee">
                 All Employee List
               </NavLink>
-            </nav>
+            </div>
+          </nav>
+        </div>
       )}
 
       <div className="lg:w-4/5">

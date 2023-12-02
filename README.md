@@ -14,6 +14,10 @@ https://github.com/programming-hero-web-course1/b8a12-server-side-Saif-Rahman-80
 # Live site Link
  + https://employee-management-de63c.web.app 
 
+# Admin info
+ + Email: mama@mami.com
+ + Password: 12345@A
+
 
 # React + Vite
 

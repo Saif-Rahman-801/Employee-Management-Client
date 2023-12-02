@@ -1,17 +1,20 @@
-/* eslint-disable no-unused-vars */
+
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { FaTrash } from "react-icons/fa";
 
 const AllEmployee = () => {
   const [AllUsers, setAllUsers] = useState([]);
-  const [fire, setFire] = useState(false);
+  // const [fire, setFire] = useState(false);
   const axiosPublic = useAxiosPublic();
 
   const fetchUser = async () => {
     try {
-      const response = await fetch("https://employee-management-server-nine.vercel.app/users");
+      const response = await fetch(
+        "https://employee-management-server-nine.vercel.app/users"
+      );
       const data = await response.json();
       setAllUsers(data);
     } catch (error) {
@@ -41,8 +44,9 @@ const AllEmployee = () => {
         const res = await axiosPublic.delete(`/users/${userId}`);
 
         if (res.data.deletedCount > 0) {
-          setFire(!fire);
-          toast.success("User fired successfully, It will be deleted from the list after a refresh");
+          toast.success(
+            "User fired successfully, It will be deleted from the list after a refresh"
+          );
           await fetchUser();
         }
 
@@ -74,6 +78,43 @@ const AllEmployee = () => {
       toast.error("Error updating employee role");
       console.log(error);
     }
+  };
+
+  const handleFired = (userId) => {
+    console.log(userId);
+    const fired = {
+      fired: true,
+    };
+    Swal.fire({
+      title: "Are you sure? You want to fire the employee?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic
+          .put(`/fire/${userId}`, fired)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.modifiedCount > 0) {
+              toast.success("Employee fired");
+            }
+            fetchUser();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        Swal.fire({
+          title: "Fired!",
+          text: "Your employee has been fired.",
+          icon: "success",
+        });
+      }
+    });
   };
 
   return (
@@ -110,17 +151,25 @@ const AllEmployee = () => {
                 </div>
               </td>
               <td className="border px-4 py-2">
-                {fire ? (
-                  <p>
-                    <i>Fired</i>{" "}
-                  </p>
+                {employee.fired ? (
+                  <button onClick={() => handleFire(employee._id)} className="px-3 py-2 bg-red-500 rounded-md text-white">
+                    <i className="flex gap-3 text-[16px]">
+                      Fired <FaTrash />
+                    </i>
+                  </button>
                 ) : (
                   <button
-                    onClick={() => handleFire(employee._id)}
+                    onClick={() => handleFired(employee._id)}
                     className="px-3 py-2 bg-red-500 rounded-md text-white"
                   >
                     Fire
                   </button>
+                  // <button
+                  //   onClick={() => handleFire(employee._id)}
+                  //   className="px-3 py-2 bg-red-500 rounded-md text-white"
+                  // >
+                  //   Fire
+                  // </button>
                 )}
               </td>
             </tr>

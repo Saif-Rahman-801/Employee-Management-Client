@@ -73,19 +73,19 @@ const Navbar = () => {
               </button>
             </>
           ) : (
-            <>
+            <div className="flex flex-col md:flex-row gap-3">
               {/* Conditional Register and Login buttons */}
               <Link to={`/register`}>
-                <button className="bg-blue-400 hover:bg-gray-400 text-black font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline navUl items-center">
+                <button className="bg-blue-400 hover:bg-gray-400 text-black font-medium p-2 md:py-2 md:px-4 rounded focus:outline-none focus:shadow-outline navUl items-center text-[15px]">
                   Register <FaArrowRight />
                 </button>
               </Link>
               <Link to={`/login`}>
-                <button className="bg-blue-400 hover:bg-gray-400 text-black font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline navUl items-center">
+                <button className="bg-blue-400 hover:bg-gray-400 text-black font-medium p-2 md:py-2 md:px-4 rounded focus:outline-none focus:shadow-outline navUl items-center">
                   Login <CgLogIn />
                 </button>
               </Link>
-            </>
+            </div>
           )}
         </div>
       </nav>
