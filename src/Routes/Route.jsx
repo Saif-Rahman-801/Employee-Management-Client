@@ -11,6 +11,7 @@ import PrivateRoute from "./PrivateRoute";
 import AllEmployee from "../Pages/Dashboard/Admin/AllEmployee";
 import AdminRoutes from "./AdminRoutes";
 import HrRoutes from "./HrRoutes";
+import EmployeeRoutes from "./EmployeeRoutes";
 
 const router = createBrowserRouter([
   {
@@ -54,9 +55,9 @@ const router = createBrowserRouter([
       {
         path: "worksheet",
         element: (
-          <PrivateRoute>
+          <EmployeeRoutes>
             <WorkSheet />
-          </PrivateRoute>
+          </EmployeeRoutes>
         ),
       },
       {
