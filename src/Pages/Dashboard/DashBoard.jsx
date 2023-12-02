@@ -160,14 +160,14 @@ const Dashboard = () => {
           )}
         </div>
       ) : (
-        <div className="lg:w-1/5 bg-[burlywood] h-[180px] md:min-h-screen">
+        <div className="lg:w-1/5 bg-[burlywood] h-auto md:min-h-screen">
           <nav className="flex flex-col lg:gap-3 font-medium">
             <NavLink className="px-3 py-2 border-b border-gray-600 block" to="/">
               Home
             </NavLink>
 
             <div className="p-3">
-              <h2 className="border-b mb-2 p-2 border-gray-600">Employee Routes</h2>
+              <h2 className="border-b mb-2 p-2 border-gray-600">For Employees </h2>
               <NavLink className="px-3 py-2 block" to="/">
                 Payment History
               </NavLink>
@@ -177,14 +177,14 @@ const Dashboard = () => {
             </div>
 
             <div className="p-3">
-              <h2 className="border-b mb-2 p-2 border-gray-600">HR Routes</h2>
+              <h2 className="border-b mb-2 p-2 border-gray-600">For HR </h2>
               <NavLink className="px-3 py-2 block" to="allUsers">
                 Users
               </NavLink>
             </div>
 
             <div className="p-3">
-              <h2 className="border-b mb-2 p-2 border-gray-600">Admin Routes</h2>
+              <h2 className="border-b mb-2 p-2 border-gray-600">For Admin</h2>
               <NavLink className="px-3 py-2 block" to="allEmployee">
                 All Employee List
               </NavLink>
