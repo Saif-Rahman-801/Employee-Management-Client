@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  /* const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const [allUsers, setAllUsers] = useState([]);
   const [main, setMain] = useState(null);
@@ -55,7 +55,54 @@ const Dashboard = () => {
 
   console.log(main, main?.role);
   const role = main?.role;
-  console.log(role);
+  console.log(role); */
+
+  const { user } = useAuth();
+  const axiosPublic = useAxiosPublic();
+  const [allUsers, setAllUsers] = useState([]);
+  const [main, setMain] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosPublic.get("/users");
+        setAllUsers(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const initializeData = async () => {
+      await fetchData();
+    };
+
+    initializeData();
+  }, [axiosPublic]);
+
+  useEffect(() => {
+    const getMainRole = () => {
+      // check if user is available
+      const mainEmail = allUsers.find((data) => data?.email === user?.email);
+      const mainUser = allUsers.find((data) => data?._id === mainEmail?._id);
+      return mainUser;
+    };
+
+    const mainUser = getMainRole();
+
+    const cleanup = () => {
+      setMain(mainUser);
+    };
+
+    return cleanup;
+  }, [allUsers, user]);
+
+  if (!main) {
+    // Main user data is not available yet, you can return a loading indicator or null
+    return null;
+  }
+
+  const role = main?.role;
+  console.log(role)
 
   return (
     <div className="flex flex-col lg:flex-row">
@@ -112,7 +159,23 @@ const Dashboard = () => {
           )}
         </div>
       ) : (
-        ""
+        <nav className="flex flex-col lg:gap-3 font-medium">
+              <NavLink className="px-3 py-2" to="/">
+                Home
+              </NavLink>
+              <NavLink className="px-3 py-2" to="/">
+                Payment History
+              </NavLink>
+              <NavLink className="px-3 py-2" to="worksheet">
+                Work-sheet
+              </NavLink>
+              <NavLink className="px-3 py-2" to="allUsers">
+                Users
+              </NavLink>
+              <NavLink className="px-3 py-2" to="allEmployee">
+                All Employee List
+              </NavLink>
+            </nav>
       )}
 
       <div className="lg:w-4/5">
