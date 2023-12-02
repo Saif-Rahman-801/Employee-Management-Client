@@ -4,30 +4,10 @@ import { useEffect, useState } from "react";
 import useUser from "../../Hooks/useUser";
 
 const Dashboard = () => {
-  /*   // const axiosPublic = useAxiosPublic();
-    // const [allUsers, setAllUsers] = useState([]); */
 
   const { user, loading, setLoading } = useAuth();
   const allUsers = useUser();
   const [main, setMain] = useState(null);
-
-  /* useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // check user
-        const response = await axiosPublic.get("/users");
-        setAllUsers(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    const initializeData = async () => {
-      await fetchData();
-    };
-
-    initializeData();
-  }, [axiosPublic]); */
 
   useEffect(() => {
     const getMainRole = () => {

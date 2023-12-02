@@ -152,11 +152,11 @@ const AllEmployee = () => {
               </td>
               <td className="border px-4 py-2">
                 {employee.fired ? (
-                  <button onClick={() => handleFire(employee._id)} className="px-3 py-2 bg-red-500 rounded-md text-white">
+                  <p onClick={() => handleFire(employee._id)} className="px-3 py-2 bg-red-500 rounded-md text-white">
                     <i className="flex gap-3 text-[16px]">
                       Fired <FaTrash />
                     </i>
-                  </button>
+                  </p>
                 ) : (
                   <button
                     onClick={() => handleFired(employee._id)}
