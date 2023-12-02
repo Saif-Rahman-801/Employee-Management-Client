@@ -22,13 +22,18 @@ const AdminRoutes = ({ children }) => {
 
     const admin = allUsers.find((usr) => usr._id === findAdmin?._id);
     // console.log(admin?.role);
+    const role = admin?.role
 
-    if (admin?.role === "admin") {
-      return children;
-    } else {
-      toast.error("It's a admin route");
-      return <Navigate to="/" replace></Navigate>
+    if(role){
+        if (role === "admin") {
+            return children;
+          } else {
+            toast.error("It's a admin route, Admin can only access the route");
+            return <Navigate to="/" replace></Navigate>
+          }
     }
+
+    
   }
 };
 

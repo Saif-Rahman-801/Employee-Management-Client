@@ -12,7 +12,8 @@ const Dashboard = () => {
   
   // console.log(findAdmin,findAdmin?._id);
   // const admin = allUsers.find((usr) => usr._id === findAdmin?._id)
-  // console.log(admin?.role);
+  // const role = admin.role
+  // console.log(role);
 
   useEffect(() => {
     const fetchData = async () => {
