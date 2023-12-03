@@ -14,6 +14,7 @@ import HrRoutes from "./HrRoutes";
 import EmployeeRoutes from "./EmployeeRoutes";
 import Details from "../Pages/Dashboard/Details";
 import PaymentHistory from "../Pages/Dashboard/Employee/PaymentHistory";
+import Progress from "../Pages/Dashboard/Progress";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,14 @@ const router = createBrowserRouter([
         element: (
           <HrRoutes>
             <Users />
+          </HrRoutes>
+        ),
+      },
+      {
+        path: "progress",
+        element: (
+          <HrRoutes>
+            <Progress />
           </HrRoutes>
         ),
       },

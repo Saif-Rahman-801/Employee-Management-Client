@@ -80,6 +80,9 @@ const Dashboard = () => {
               <NavLink className="px-3 py-2" to="allUsers">
                 Employee-List
               </NavLink>
+              <NavLink className="px-3 py-2" to="progress">
+                Progress
+              </NavLink>
             </nav>
           ) : role === "admin" ? (
             <nav className="flex flex-col lg:gap-3 font-medium">
