@@ -26,7 +26,7 @@ const PaymentHistory = () => {
 
   const mainUser = users.find((usr) => usr.email === user.email);
 
-  if (!user && mainUser) {
+  if (!mainUser) {
     return <progress className="progress w-56"></progress>;
   }
 
