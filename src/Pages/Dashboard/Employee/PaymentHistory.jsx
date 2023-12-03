@@ -8,6 +8,7 @@ const PaymentHistory = () => {
   const users = useUser();
   const axiosPublic = useAxiosPublic();
   const [paidUsers, setPaidUsers] = useState([]);
+  const [isCardView, setIsCardView] = useState(false);
 
   useEffect(() => {
     axiosPublic
@@ -30,38 +31,55 @@ const PaymentHistory = () => {
     return <progress className="progress w-56"></progress>;
   }
 
-
-  //   console.log(mainUser);
   const paidUser = paidUsers.find((usr) => usr.userId === mainUser?._id);
 
   if (!paidUser) {
     return <progress className="progress w-56"></progress>;
   }
 
-  console.log(paidUser);
+  const toggleView = () => {
+    setIsCardView(!isCardView);
+  };
 
   return (
     <div className="overflow-x-auto font-medium">
-      <table className="table table-zebra">
-        {/* head */}
-        <thead>
-          <tr>
-            <th></th>
-            <th>Month</th>
-            <th>Amount</th>
-            <th>Transaction id</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* row 1 */}
-          <tr>
-            <th></th>
-            <th>{paidUser?.month} </th>
-            <td>{paidUser?.salary} </td>
-            <td>{paidUser?._id}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="mb-4">
+        <button
+          onClick={toggleView}
+          className="bg-blue-500 text-white px-4 py-2 rounded-md"
+        >
+          {isCardView ? "Switch to Table View" : "Switch to Card View"}
+        </button>
+      </div>
+
+      {isCardView ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="bg-white p-6 rounded-md shadow-md">
+            <p className="text-xl font-bold mb-2">Month: {paidUser?.month}</p>
+            <p>Amount: {paidUser?.salary}</p>
+            <p>Transaction id: {paidUser?._id}</p>
+          </div>
+        </div>
+      ) : (
+        <table className="table table-zebra">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Month</th>
+              <th>Amount</th>
+              <th>Transaction id</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th></th>
+              <th>{paidUser?.month}</th>
+              <td>{paidUser?.salary}</td>
+              <td>{paidUser?._id}</td>
+            </tr>
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
