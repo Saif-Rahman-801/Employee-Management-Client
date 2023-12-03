@@ -26,8 +26,7 @@ const Login = () => {
         console.log(res.user);
         toast.success("Logged in successfully");
         navigate("/");
-      })
-      .catch((error) => {
+      }).catch((error) => {
         toast.error(error);
       });
   };

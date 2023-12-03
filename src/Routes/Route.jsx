@@ -12,6 +12,8 @@ import AllEmployee from "../Pages/Dashboard/Admin/AllEmployee";
 import AdminRoutes from "./AdminRoutes";
 import HrRoutes from "./HrRoutes";
 import EmployeeRoutes from "./EmployeeRoutes";
+import Details from "../Pages/Dashboard/Details";
+import PaymentHistory from "../Pages/Dashboard/Employee/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,14 @@ const router = createBrowserRouter([
         path: "/contact",
         element: <ContactUs />,
       },
+      {
+        path: "/:id",
+        element: (
+          <HrRoutes>
+            <Details />
+          </HrRoutes>
+        ),
+      },
     ],
   },
   {
@@ -51,6 +61,12 @@ const router = createBrowserRouter([
             <Users />
           </HrRoutes>
         ),
+      },
+      {
+        path: "payment",
+        element: <EmployeeRoutes>
+        <PaymentHistory />
+        </EmployeeRoutes>
       },
       {
         path: "worksheet",

@@ -65,7 +65,7 @@ const Dashboard = () => {
               <NavLink className="px-3 py-2" to="/">
                 Home
               </NavLink>
-              <NavLink className="px-3 py-2" to="/">
+              <NavLink className="px-3 py-2" to="payment">
                 Payment History
               </NavLink>
               <NavLink className="px-3 py-2" to="worksheet">
@@ -78,7 +78,7 @@ const Dashboard = () => {
                 Home
               </NavLink>
               <NavLink className="px-3 py-2" to="allUsers">
-                Users
+                Employee-List
               </NavLink>
             </nav>
           ) : role === "admin" ? (
@@ -124,7 +124,7 @@ const Dashboard = () => {
               <h2 className="border-b mb-2 p-2 border-gray-600">
                 For Employees{" "}
               </h2>
-              <NavLink className="px-3 py-2 block" to="/">
+              <NavLink className="px-3 py-2 block" to="payment">
                 Payment History
               </NavLink>
               <NavLink className="px-3 py-2 block" to="worksheet">
@@ -135,7 +135,7 @@ const Dashboard = () => {
             <div className="p-3">
               <h2 className="border-b mb-2 p-2 border-gray-600">For HR </h2>
               <NavLink className="px-3 py-2 block" to="allUsers">
-                Users
+                All Employee
               </NavLink>
             </div>
 
