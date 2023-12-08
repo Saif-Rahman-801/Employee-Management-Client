@@ -1,8 +1,6 @@
-# Client side repo
-https://github.com/programming-hero-web-course1/b8a12-client-side-Saif-Rahman-801
 
 # server side repo
-https://github.com/programming-hero-web-course1/b8a12-server-side-Saif-Rahman-801
+https://github.com/Saif-Rahman-801/Employee-Management-Server
 
 # Features of the project
  + You can join as employee
