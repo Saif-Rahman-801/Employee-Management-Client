@@ -10,7 +10,7 @@ https://github.com/Saif-Rahman-801/Employee-Management-Server
  + Employees can submit their work
 
 # Live site Link
- + https://employee-management-de63c.web.app 
+ + https://dulcet-gnome-2e38bc.netlify.app
 
 # Admin info
  + Email: mama@mami.com
