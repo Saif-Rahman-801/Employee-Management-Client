@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import competeImg from "../../assets/award.png";
+import Aos from "aos";
 
 const Cutomer = () => {
+  useEffect(() => {
+    Aos.init() // Refresh AOS after rendering your component
+  }, []);
   return (
-    <div className="Container flex flex-col md:flex-row justify-between items-center">
+    <div data-aos="fade-up" data-aos-duration="1000" className="Container flex flex-col md:flex-row justify-between items-center">
       <div>
         <div className="p-8 rounded-md font-medium">
           <h2 className="text-3xl font-bold mb-4">

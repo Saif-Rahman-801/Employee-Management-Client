@@ -15,11 +15,17 @@ import EmployeeRoutes from "./EmployeeRoutes";
 import Details from "../Pages/Dashboard/Details";
 import PaymentHistory from "../Pages/Dashboard/Employee/PaymentHistory";
 import Progress from "../Pages/Dashboard/Progress";
+import ErrorComponent from "../Pages/ErrorPage/ErrorComponent";
+import 'aos/dist/aos.css'; // Import the AOS styles
+import AOS from 'aos';
+
+AOS.init();
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    errorElement: <ErrorComponent />,
     children: [
       {
         path: "/",
@@ -54,6 +60,7 @@ const router = createBrowserRouter([
         <DashBoard />
       </PrivateRoute>
     ),
+    errorElement: <ErrorComponent />,
     children: [
       {
         path: "allUsers",

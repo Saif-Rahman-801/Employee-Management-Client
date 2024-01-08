@@ -1,7 +1,10 @@
+
+
 const Service = ({ service }) => {
   const { title, description, icon, id } = service;
+  
   return (
-    <div className="my-10">
+    <div  className="my-10">
       <div>
         <div className="text-center">
           <img

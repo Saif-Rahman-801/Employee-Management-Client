@@ -5,6 +5,7 @@ import Service from "./Service";
 import Course from "./Course";
 import Testimonials from "./Testimonials";
 import Footer from "../Shared/Footer/Footer";
+import Aos from "aos";
 
 const Home = () => {
   const [servicesData, setServicesData] = useState([]);
@@ -23,11 +24,15 @@ const Home = () => {
     fetchServicesData();
   }, []);
 
+  useEffect(() => {
+    Aos.init() // Refresh AOS after rendering your component
+  }, []);
+
   return (
     <div>
       <Banner />
       <Cutomer />
-      <div className="my-10">
+      <div data-aos="fade-up" data-aos-duration="1000" className="my-10">
         <h2 className="text-center font-bold text-3xl">Our Services</h2>
         <div className="Container grid grid-cols-1 md:grid-cols-3 gap-8">
           {servicesData.map((service) => (
