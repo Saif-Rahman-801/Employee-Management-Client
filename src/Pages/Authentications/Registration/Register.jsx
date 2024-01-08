@@ -34,7 +34,7 @@ const Register = () => {
     const role = formData.get("role");
 
     const findAdmin = allUsers.find((user) => user.role === "admin");
-    const findHr = allUsers.find((user) => user.role === "hr");
+    // const findHr = allUsers.find((user) => user.role === "hr");
     const findUser = allUsers.find((user) => user.email === email);
 
     if (findUser) {
@@ -47,12 +47,13 @@ const Register = () => {
         toast.error("Admin Already Exists");
         return;
       }
-    } else if (role === "hr") {
-      if (findHr) {
-        toast.error("Hr Already Exists");
-        return;
-      }
-    }
+    } 
+    // else if (role === "hr") {
+    //   if (findHr) {
+    //     toast.error("Hr Already Exists");
+    //     return;
+    //   }
+    // }
 
     // Extracting the image file
     const photo = formData.get("photo");
